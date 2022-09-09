@@ -18,14 +18,14 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateProgrammingLanguageCommand createProgrammingLanguageCommand)
         {
-            CreateProgrammingLanguageDto result = await Mediator.Send(createProgrammingLanguageCommand);
+            CreatedProgrammingLanguageDto result = await Mediator.Send(createProgrammingLanguageCommand);
             return Created("", result);
         }
 
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] UpdateProgrammingLanguageCommand updateProgrammingLanguageCommand)
         {
-            UpdateProgrammingLanguageDto result = await Mediator.Send(updateProgrammingLanguageCommand);
+            UpdatedProgrammingLanguageDto result = await Mediator.Send(updateProgrammingLanguageCommand);
 
             return Ok(result);
         }
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
         [HttpPost("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteProgrammingLanguageCommand deleteProgrammingLanguageCommand)
         {
-            DeleteProgrammingLanguageDto result = await Mediator.Send(deleteProgrammingLanguageCommand);
+            DeletedProgrammingLanguageDto result = await Mediator.Send(deleteProgrammingLanguageCommand);
 
             return Ok(result);
         }

@@ -14,6 +14,7 @@ namespace Kodlama.io.Devs.Persistence.Context
     {
         protected IConfiguration Configuration { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<Framework> Frameworks { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -27,10 +28,24 @@ namespace Kodlama.io.Devs.Persistence.Context
                 a.ToTable("ProgrammingLanguages").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
+                a.HasMany(p=>p.Frameworks);
+            });
+
+            modelBuilder.Entity<Framework>(a =>
+            {
+                a.ToTable("Frameworks").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ProgrammingLanguageId).HasColumnName("ProgramingLanguageId");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.HasOne(p => p.ProgrammingLanguage);
             });
 
             ProgrammingLanguage[] programmingLanguageEntitySeeds = { new(1, "c#") };
             modelBuilder.Entity<ProgrammingLanguage>().HasData(programmingLanguageEntitySeeds);
+
+            Framework[] frameworkEntitySeeds = { new(1, 1, "WPF"),new(2,2,"Spring") };
+            modelBuilder.Entity<Framework>().HasData(frameworkEntitySeeds);
+            
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Dtos.CommandDtos
 {
-    public class CreateProgrammingLanguageDto
+    public class CreatedProgrammingLanguageDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

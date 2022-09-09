@@ -19,17 +19,18 @@ namespace Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<ProgrammingLanguage, CreateProgrammingLanguageDto>().ReverseMap();
+            CreateMap<ProgrammingLanguage, CreatedProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, CreateProgrammingLanguageCommand>().ReverseMap();
             
-            CreateMap<ProgrammingLanguage, UpdateProgrammingLanguageDto>().ReverseMap();
+            CreateMap<ProgrammingLanguage, UpdatedProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, UpdateProgrammingLanguageCommand>().ReverseMap();
 
-            CreateMap<ProgrammingLanguage, DeleteProgrammingLanguageDto>().ReverseMap();
+            CreateMap<ProgrammingLanguage, DeletedProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, DeleteProgrammingLanguageCommand>().ReverseMap();
-
-            CreateMap<IPaginate<ProgrammingLanguage>, ProgrammingLanguageListModel>().ReverseMap();
+            
             CreateMap<ProgrammingLanguage, ProgrammingLanguageListDto>().ReverseMap();
+            CreateMap<IPaginate<ProgrammingLanguage>, ProgrammingLanguageListModel>().ReverseMap();
+            
 
             CreateMap<ProgrammingLanguage, ProgrammingLanguageGetByIdDto>().ReverseMap();
 

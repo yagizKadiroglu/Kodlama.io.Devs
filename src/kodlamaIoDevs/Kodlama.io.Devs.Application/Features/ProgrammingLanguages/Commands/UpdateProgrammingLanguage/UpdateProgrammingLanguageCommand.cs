@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.UpdateProgrammingLanguage
 {
-    public class UpdateProgrammingLanguageCommand:IRequest<UpdateProgrammingLanguageDto>
+    public class UpdateProgrammingLanguageCommand:IRequest<UpdatedProgrammingLanguageDto>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
 
-        public class UpdateProgrammingLanguageCommandHandler : IRequestHandler<UpdateProgrammingLanguageCommand, UpdateProgrammingLanguageDto>
+        public class UpdateProgrammingLanguageCommandHandler : IRequestHandler<UpdateProgrammingLanguageCommand, UpdatedProgrammingLanguageDto>
         {
             private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
             private readonly IMapper _mapper;
@@ -31,13 +31,13 @@ namespace Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.Upd
                 _programmingLanguageBusinessRules = programmingLanguageBusinessRules;
             }
 
-            public async Task<UpdateProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request, CancellationToken cancellationToken)
+            public async Task<UpdatedProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
                 await _programmingLanguageBusinessRules.ProgrammingLanguageSameNameCheck(request.Name);
 
                 ProgrammingLanguage mappedProgramingLanguage = _mapper.Map<ProgrammingLanguage>(request);
                 ProgrammingLanguage updateProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(mappedProgramingLanguage);
-                UpdateProgrammingLanguageDto updateProgrammingLanguageDto = _mapper.Map<UpdateProgrammingLanguageDto>(updateProgrammingLanguage);
+                UpdatedProgrammingLanguageDto updateProgrammingLanguageDto = _mapper.Map<UpdatedProgrammingLanguageDto>(updateProgrammingLanguage);
 
                 return updateProgrammingLanguageDto;
             }
