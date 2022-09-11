@@ -20,6 +20,10 @@
   <ItemGroup>
     <Folder Include="Features\Frameworks\Constants\" />
     <Folder Include="Features\Frameworks\Rules\" />
+    <Folder Include="Features\Authorizations\Constants\" />
+    <Folder Include="Features\Authorizations\Models\" />
+    <Folder Include="Features\Authorizations\Rules\" />
+    <Folder Include="Features\Authorizations\Queries\" />
   </ItemGroup>
 
 </Project>
