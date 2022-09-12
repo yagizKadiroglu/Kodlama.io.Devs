@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Kodlama.io.Devs.Persistence.Repositories
 {
-    public class AuthRepository:EfRepositoryBase<User,BaseDbContext>,IAuthRepository
+    public class UserRepository:EfRepositoryBase<User,BaseDbContext>,IUserRepository
     {
-        public AuthRepository(BaseDbContext context) : base(context)
+        public UserRepository(BaseDbContext context) : base(context)
         {
 
         }

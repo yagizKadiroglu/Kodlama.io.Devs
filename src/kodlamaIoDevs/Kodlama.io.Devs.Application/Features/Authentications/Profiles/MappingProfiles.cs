@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Core.Security.Entities;
 using Core.Security.JWT;
-using Kodlama.io.Devs.Application.Features.Authorizations.Commands.Register;
-using Kodlama.io.Devs.Application.Features.Users.Dtos;
+using Kodlama.io.Devs.Application.Features.Authentications.Commands.UserRegister;
+using Kodlama.io.Devs.Application.Features.Authentications.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +17,8 @@ namespace Kodlama.io.Devs.Application.Features.Authorizations.Profiles
         {
             CreateMap<AccessToken, RegisteteredDto>().ReverseMap();
             CreateMap<User, RegisterCommand>().ReverseMap();
+
+            CreateMap<AccessToken, LoginDto>().ReverseMap();
         }
     }
 }

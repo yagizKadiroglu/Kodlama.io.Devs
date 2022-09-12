@@ -20,10 +20,13 @@
   <ItemGroup>
     <Folder Include="Features\Frameworks\Constants\" />
     <Folder Include="Features\Frameworks\Rules\" />
-    <Folder Include="Features\Authorizations\Constants\" />
-    <Folder Include="Features\Authorizations\Models\" />
-    <Folder Include="Features\Authorizations\Rules\" />
-    <Folder Include="Features\Authorizations\Queries\" />
+    <Folder Include="Features\GithubProfiles\Constants\" />
+    <Folder Include="Features\GithubProfiles\Models\" />
+    <Folder Include="Features\GithubProfiles\Rules\" />
+    <Folder Include="Features\GithubProfiles\Queries\" />
+    <Folder Include="Features\Authentications\Constants\" />
+    <Folder Include="Features\Authentications\Models\" />
+    <Folder Include="Features\Authentications\Queries\" />
   </ItemGroup>
 
 </Project>

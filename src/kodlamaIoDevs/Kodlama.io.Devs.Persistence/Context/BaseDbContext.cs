@@ -8,7 +8,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Kodlama.io.Devs.Persistence.Context
 {
     public class BaseDbContext : DbContext
@@ -19,6 +18,7 @@ namespace Kodlama.io.Devs.Persistence.Context
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<GithubProfile> GithubProfiles { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -61,6 +61,12 @@ namespace Kodlama.io.Devs.Persistence.Context
 
             });
 
+            modelBuilder.Entity<UserProfile>(a =>
+            {
+                a.ToTable("UserProfiles");
+                a.HasMany(p => p.GithubProfile);
+            });
+
             modelBuilder.Entity<OperationClaim>(a =>
             {
                 a.ToTable("OperationClaims").HasKey(k => k.Id);
@@ -78,6 +84,15 @@ namespace Kodlama.io.Devs.Persistence.Context
 
                 a.HasOne(a => a.User);
                 a.HasOne(a => a.OperationClaim);
+            });
+
+            modelBuilder.Entity<GithubProfile>(a =>
+            {
+                a.ToTable("GithubProfiles").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.UserId).HasColumnName("UserId");
+                a.Property(p => p.GithubUrl).HasColumnName("GithubUrl");
+                a.HasOne(p => p.UserProfile);
             });
 
 

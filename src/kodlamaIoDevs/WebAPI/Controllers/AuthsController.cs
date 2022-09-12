@@ -1,5 +1,6 @@
-﻿using Kodlama.io.Devs.Application.Features.Authorizations.Commands.Register;
-using Kodlama.io.Devs.Application.Features.Users.Dtos;
+﻿using Kodlama.io.Devs.Application.Features.Authentications.Commands.UserLogin;
+using Kodlama.io.Devs.Application.Features.Authentications.Commands.UserRegister;
+using Kodlama.io.Devs.Application.Features.Authentications.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,14 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterCommand registerCommand)
         {
             RegisteteredDto result = await Mediator.Send(registerCommand);
+
+            return Created("", result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginCommand loginCommand)
+        {
+            LoginDto result = await Mediator.Send(loginCommand);
 
             return Created("", result);
         }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kodlama.io.Devs.Application.Features.Users.Dtos
+namespace Kodlama.io.Devs.Application.Features.Authentications.Dtos
 {
-    public class RegisteteredDto
+    public class LoginDto
     {
         public string Token { get; set; }
         public DateTime Expiration { get; set; }

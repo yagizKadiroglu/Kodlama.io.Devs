@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kodlama.io.Devs.Application.Services.Repositories
 {
-    public interface IAuthRepository:IAsyncRepository<User>,IRepository<User>
+    public interface IUserRepository:IAsyncRepository<User>,IRepository<User>
     {
     }
 }

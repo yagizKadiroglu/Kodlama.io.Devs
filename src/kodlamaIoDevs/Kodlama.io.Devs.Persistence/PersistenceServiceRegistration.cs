@@ -22,7 +22,7 @@ namespace Kodlama.io.Devs.Persistence
                                                         configuration.GetConnectionString("KodlamaioDevsConnectionString")));
             services.AddScoped<IProgrammingLanguageRepository, ProgrammingLangueageRepository>();
             services.AddScoped<IFrameworkRepository, FrameworkRepository>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
 
             return services;
