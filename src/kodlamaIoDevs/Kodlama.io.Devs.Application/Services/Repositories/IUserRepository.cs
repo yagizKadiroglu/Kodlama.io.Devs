@@ -11,4 +11,6 @@ namespace Kodlama.io.Devs.Application.Services.Repositories
     public interface IUserRepository:IAsyncRepository<User>,IRepository<User>
     {
     }
+
+
 }

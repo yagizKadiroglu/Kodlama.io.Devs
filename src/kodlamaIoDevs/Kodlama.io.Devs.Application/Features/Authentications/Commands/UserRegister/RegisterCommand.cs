@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using Core.Security.Dtos;
+﻿using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Kodlama.io.Devs.Application.Features.Authentications.Dtos;
 using Kodlama.io.Devs.Application.Features.Authentications.Rules;
+using Kodlama.io.Devs.Application.Services.AuthService;
 using Kodlama.io.Devs.Application.Services.Repositories;
 using MediatR;
 using System;
@@ -15,38 +15,49 @@ using System.Threading.Tasks;
 
 namespace Kodlama.io.Devs.Application.Features.Authentications.Commands.UserRegister
 {
-    public class RegisterCommand:UserForRegisterDto,IRequest<RegisteteredDto>
+    public class RegisterCommand:IRequest<RegisteredDto>
     {
-        public class UserRegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteteredDto>
+        public UserForRegisterDto UserForRegisterDto { get; set; }
+        public string IpAddress { get; set; }
+        public class UserRegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredDto>
         {
             private readonly IUserRepository _userRepository;
-            private readonly IMapper _mapper;
-            private readonly ITokenHelper _tokenHelper;
-            private readonly AuthBusinessRules _userBusinessRules;
+            private readonly IAuthService _authService;
+            private readonly AuthBusinessRules _authBusinessRules;
 
-            public UserRegisterCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper, AuthBusinessRules userBusinessRules)
+            public UserRegisterCommandHandler(IUserRepository userRepository, AuthBusinessRules authBusinessRules, IAuthService authService)
             {
                 _userRepository = userRepository;
-                _mapper = mapper;
-                _tokenHelper = tokenHelper;
-                _userBusinessRules = userBusinessRules;
+                _authBusinessRules = authBusinessRules;
+                _authService = authService;
             }
 
-            public async Task<RegisteteredDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
+            public async Task<RegisteredDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
             {
-                await _userBusinessRules.EmailCheck(request.Email);
+                await _authBusinessRules.EmailCheck(request.UserForRegisterDto.Email);
 
-                HashingHelper.CreatePasswordHash(request.Password,out byte[] passwordHash,out byte[] passwordSalt);
-                User user = _mapper.Map<User>(request);
-                user.PasswordHash= passwordHash;
-                user.PasswordSalt = passwordSalt;
-                user.Status = true;
+                HashingHelper.CreatePasswordHash(request.UserForRegisterDto.Password,out byte[] passwordHash,out byte[] passwordSalt);
+                User user = new()
+                {
+                    Email = request.UserForRegisterDto.Email,
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                    FirstName = request.UserForRegisterDto.FirstName,
+                    LastName = request.UserForRegisterDto.LastName,
+                    Status = true
+                };
 
-                User registedUser = await _userRepository.AddAsync(user);
-                AccessToken token = _tokenHelper.CreateToken(user, new List<OperationClaim>());
-                RegisteteredDto createdToken = _mapper.Map<RegisteteredDto>(token);
+            User registedUser = await _userRepository.AddAsync(user);
+                AccessToken createdAccessToken = await _authService.CreateAccessToken(user);
+                RefreshToken createdRefreshToken = await _authService.CreateRefreshToken(user, request.IpAddress);
+                RefreshToken addedRefreshtoken = await _authService.AddRefreshToken(createdRefreshToken);
+                RegisteredDto registeredDto = new()
+                {
+                    RefreshToken=addedRefreshtoken,
+                    AccessToken = createdAccessToken
+                };
 
-                return createdToken;
+                return registeredDto;
             }
         }
     }

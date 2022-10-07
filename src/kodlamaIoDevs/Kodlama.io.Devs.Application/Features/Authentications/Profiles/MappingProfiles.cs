@@ -15,7 +15,7 @@ namespace Kodlama.io.Devs.Application.Features.Authorizations.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<AccessToken, RegisteteredDto>().ReverseMap();
+            CreateMap<AccessToken, RegisteredDto>().ReverseMap();
             CreateMap<User, RegisterCommand>().ReverseMap();
 
             CreateMap<AccessToken, LoginDto>().ReverseMap();

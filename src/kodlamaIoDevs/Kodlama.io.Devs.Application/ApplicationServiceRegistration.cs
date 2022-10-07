@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Kodlama.io.Devs.Application.Services.AuthService;
 
 namespace Kodlama.io.Devs.Application
 {
@@ -27,6 +28,8 @@ namespace Kodlama.io.Devs.Application
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+
+            services.AddScoped<IAuthService, AuthManager>();
 
 
             return services;

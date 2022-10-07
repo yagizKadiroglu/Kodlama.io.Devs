@@ -11,10 +11,10 @@ namespace Kodlama.io.Devs.Application.Features.Authentications.Commands.UserRegi
     {
         public RegisterCommandValidation()
         {
-            RuleFor(u => u.Email).NotEmpty().EmailAddress();
-            RuleFor(u => u.FirstName).NotEmpty();
-            RuleFor(u => u.LastName).NotEmpty();
-            RuleFor(u => u.Password).NotEmpty();
+            RuleFor(u => u.UserForRegisterDto.Email).NotEmpty().EmailAddress();
+            RuleFor(u => u.UserForRegisterDto.FirstName).NotEmpty();
+            RuleFor(u => u.UserForRegisterDto.LastName).NotEmpty();
+            RuleFor(u => u.UserForRegisterDto.Password).NotEmpty();
 
 
 
